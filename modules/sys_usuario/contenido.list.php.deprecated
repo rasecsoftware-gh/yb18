@@ -1,0 +1,88 @@
+<?php
+	require_once '../../sys.php';
+	$module = "sys_usuario";
+	$prefix = "$module";
+	
+	$id_parent = Sys::GetR('id_parent', $id);
+	
+	$qa = new PgQuery("
+	SELECT * FROM sys.usuario_contenido uc 
+	WHERE uc.id_usuario=$id_parent AND uc.activo AND uc.id_contenido IS NULL 
+	", NULL, true, true);
+?>
+<form id="<?=$prefix?>_contenido_list_form" onsubmit="return false;">
+<table class="grid" width="100%">
+<tr>
+	<td class="cell bold" colspan="7">Acceso a Contenidos
+		<span style="float: right; margin-left: 5px;">
+		<a href="#" class="btn-icon save" onclick="<?=$prefix?>_update_multi_contenidos();" title="Guardar Cambios" style=""></a>
+		<a href="#" class="btn-icon refresh" onclick="<?=$prefix?>_reload_contenidos();" title="Actualizar lista" style=""></a>
+		</span>
+	</td>
+</tr>
+<tr>
+	<td class="cell bold" colspan="4">
+		<input class="<?=$prefix?>_detail_check" type="checkbox" name="list[]" value="*" <?=$qa->recordCount>0?'checked':''?>/> Todos los contenidos
+	</td>
+</tr>
+<tr>
+	<td class="cell bold" width="40">#</td>
+	<td class="cell bold" width="40"><input type="checkbox" onchange="<?=$prefix?>_contenido_select_all(this.checked);"/></td>
+	<td class="cell bold">Descripcion</td>
+	<td class="cell bold">&nbsp;</td>
+</tr>
+<?php
+	$q = new PgQuery("
+	SELECT c.*, uc.activo as uc_activo FROM sys.contenido c
+	LEFT JOIN sys.usuario_contenido uc ON uc.id_contenido=c.id_contenido AND uc.id_usuario=$id_parent AND uc.activo
+	WHERE NOT c.id_contenido IS NULL 
+	ORDER BY c.nombre", NULL, true, true);
+	while ($d = $q->Read()) {
+		$did = $d['id_contenido'];
+?>
+<tr align="left" valign="top">
+	<td class="cell"><?=$q->recNo?></td>
+	<td class="cell">
+		<input class="<?=$prefix?>_contenido_check" type="checkbox" name="list[]" value="<?=$did?>" <?=$d['uc_activo']==1?'checked':''?>/>
+	</td>
+	<td class="cell l">		
+		<div class="l c-gray"><?=$d['nombre']." ({$d['id_contenido']})"?></div>
+		<div class="l"><?=$d['titulo']?></div>
+	</td>
+	<td class="cell">
+		<span style="float: right;">
+		</span>
+	</td>
+</tr>
+<?php
+	} 
+?>
+</table>
+</form>
+<script>
+// functions
+// data functions
+function <?=$prefix?>_update_multi_contenidos(id) {
+	if (!confirm('Realmente desea guardar?')) return false;
+	var params = $('#<?=$prefix?>_contenido_list_form').serialize();
+	$.post('modules/<?=$module?>/core.php', 'action=UpdateMultiContenidos&id_usuario=<?=$id_parent?>&'+params, function (data) {
+		if (data.trim() == 'ok') {
+			sys.message('Se han guardado satisfactoriamente');
+			<?=$prefix?>_reload_contenidos();
+		} else {
+			alert(data);
+		}
+	});
+};
+function <?=$prefix?>_contenido_select_all(checked) {
+	if (checked) {
+		$('.<?=$prefix?>_contenido_check').attr('checked','checked');
+	} else {
+		$('.<?=$prefix?>_contenido_check').removeAttr('checked');
+	}
+}
+function <?=$prefix?>_reload_contenidos() {
+	$.post('modules/<?=$module?>/contenido.list.php', 'id_parent=<?=$id_parent?>', function (data) { $('#<?=$prefix?>_detail_container').html(data); });
+};
+// Forms
+</script>

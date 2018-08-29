@@ -1,0 +1,76 @@
+@CHARSET "ISO-8859-1";
+.x-form-field {
+	font-size:8pt!important;
+}
+.x-form-text {
+	height: 16px!important;	
+}
+.x-form-field-wrap .x-form-trigger {
+	height: 19px!important;
+}
+/* FileUploadField */
+.x-form-file-wrap {
+	position: relative;
+	height: 22px;
+}
+
+.x-form-file-wrap .x-form-file {
+	position: absolute;
+	right: 0;
+	-moz-opacity: 0;
+	filter: alpha(opacity : 0);
+	opacity: 0;
+	z-index: 2;
+	height: 22px;
+}
+
+.x-form-file-wrap .x-form-file-btn {
+	position: absolute;
+	right: 0;
+	z-index: 1;
+}
+
+.x-form-file-wrap .x-form-file-text {
+	position: absolute;
+	left: 0;
+	z-index: 3;
+	color: #777;
+	display: block;
+}
+
+.upload-icon {
+	background: url(../img/ext/image_add.png) no-repeat 0 0 !important;
+}
+
+.input-file {
+	padding: 1px 3px;
+	margin: -1px 0; /* ie bogus margin bug */
+	height: auto; /* ie quirks */
+	line-height: normal;
+	vertical-align: middle;
+}
+/* focus color customize */
+.x-form-focus, textarea.x-form-focus {
+	border-color: orange!important;
+}
+/* textarea bug fixed */
+.x-form-textarea {
+	top: 28px;
+}
+
+.msg .x-box-mc {
+	font-size: 14px;
+}
+
+#msg-div {
+	position: absolute;
+	left: 35%;
+	top: 10px;
+	width: 250px;
+	z-index: 20000;
+}
+/* icons */
+/* los url son con referencia al archivo CSS*/
+.search-icon16 {
+	background-image: url(img/xmag_16.png)!important;
+}

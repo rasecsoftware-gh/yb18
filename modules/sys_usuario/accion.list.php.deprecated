@@ -1,0 +1,81 @@
+<?php
+	require_once '../../sys.php';
+	$module = "sys_usuario";
+	$prefix = "$module";
+	
+	$id_parent = Sys::GetR('id_parent', $id);
+?>
+<form id="<?=$prefix?>_accion_list_form" onsubmit="return false;">
+<table class="grid" width="100%">
+<tr>
+	<td class="cell bold" colspan="7">Acciones del sistema
+		<span style="float: right; margin-left: 5px;">
+		<a href="#" class="btn-icon save" onclick="<?=$prefix?>_update_multi_acciones();" title="Guardar Cambios" style=""></a>
+		<a href="#" class="btn-icon refresh" onclick="<?=$prefix?>_reload_acciones();" title="Actualizar lista" style=""></a>
+		</span>
+	</td>
+</tr>
+<tr>
+	<td class="cell-head bold" width="40">#</td>
+	<td class="cell-head bold" width="40"><input type="checkbox" onchange="<?=$prefix?>_accion_select_all(this.checked);"/></td>
+	<td class="cell-head bold">Accion</td>
+	<td class="cell-head bold">Descripcion</td>
+	<td class="cell-head bold">&nbsp;</td>
+</tr>
+<?php
+	$q = new PgQuery("
+	SELECT m.*, um.estado as um_estado FROM sys.accion m
+	LEFT JOIN sys.usuario_accion um ON um.id_accion=m.id_accion AND um.id_usuario=$id_parent AND um.estado = 1
+	WHERE true 
+	ORDER BY m.key", NULL, true, true);
+	while ($d = $q->Read()) {
+		$did = $d['id_accion'];
+?>
+<tr align="left" valign="top">
+	<td class="cell"><?=$q->recNo?></td>
+	<td class="cell">
+		<input class="<?=$prefix?>_detail_check" type="checkbox" name="list[]" value="<?=$did?>" <?=$d['um_estado']==1?'checked':''?>/>
+	</td>
+	<td class="cell l">		
+		<div class="l"><?=$d['key']?></div>
+	</td>
+	<td class="cell l fs-7">		
+		<div class="l"><?=$d['descripcion']?></div>
+	</td>
+	<td class="cell">
+		<span style="float: right;">
+		</span>
+	</td>
+</tr>
+<?php
+	} 
+?>
+</table>
+</form>
+<script>
+// functions
+// data functions
+function <?=$prefix?>_update_multi_acciones(id) {
+	if (!confirm('Realmente desea guardar?')) return false;
+	var params = $('#<?=$prefix?>_accion_list_form').serialize();
+	$.post('modules/<?=$module?>/core.php', 'action=UpdateMultiAcciones&id_usuario=<?=$id_parent?>&'+params, function (data) {
+		if (data.trim() == 'ok') {
+			sys.message('Se han guardado satisfactoriamente');
+			<?=$prefix?>_reload_acciones();
+		} else {
+			alert(data);
+		}
+	});
+};
+function <?=$prefix?>_accion_select_all(checked) {
+	if (checked) {
+		$('.<?=$prefix?>_accion_check').attr('checked','checked');
+	} else {
+		$('.<?=$prefix?>_accion_check').removeAttr('checked');
+	}
+}
+function <?=$prefix?>_reload_acciones() {
+	$.post('modules/<?=$module?>/accion.list.php', 'id_parent=<?=$id_parent?>', function (data) { $('#<?=$prefix?>_detail_container').html(data); });
+};
+// Forms
+</script>

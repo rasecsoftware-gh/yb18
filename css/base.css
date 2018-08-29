@@ -1,0 +1,265 @@
+@CHARSET "ISO-8859-1";
+
+* {
+	/*font-family: "Segoe UI",Tahoma,Verdana,Arial;*/
+	font-family: arial,sans-serif;
+	font-size: 10pt;
+	color: #2A2A2A;
+}
+
+@media print {
+	body {
+		padding: 0px 0px !important;
+		margin: 0px 0px !important;
+	}
+	.hidable {
+		display: none !important;
+	}
+	.printable {
+		display: block !important;
+	}
+	a {
+		text-decoration: none !important;
+		color: #2A2A2A !important;
+	}
+}
+
+.hidable {}
+
+.printable {
+	display: none;
+}
+
+a {
+	text-decoration: none;
+	color: blue;
+}
+a:hover {
+	text-decoration: underline;
+	color: blue;
+}
+
+select {
+	font-size: 11px;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.title {
+	font-size: 14pt;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.hidden {
+	display: none;
+}
+.block {
+	display: block;
+}
+.border-l-2 {
+	border-left-width: 2px;
+}
+.fs-5 {
+	font-size: 5pt;
+}
+.fs-6 {
+	font-size: 6pt;
+}
+
+.fs-7 {
+	font-size: 7pt;
+}
+
+.fs-8 {
+	font-size: 8pt;
+}
+
+.fs-9 {
+	font-size: 9pt;
+}
+
+.fs-10 {
+	font-size: 10pt;
+}
+
+.fs-11 {
+	font-size: 11pt;
+}
+
+.fs-12 {
+	font-size: 12pt;
+}
+.fs-13 {
+	font-size: 13pt;
+}
+.fs-14 {
+	font-size: 14pt;
+}
+.fs-15 {
+	font-size: 15pt;
+}
+.fs-16 {
+    font-size: 16pt;
+}
+.fs-17 {
+    font-size: 17pt;
+}
+.fs-18 {
+    font-size: 18pt;
+}
+.fs-19 {
+    font-size: 19pt;
+}
+.fs-20 {
+    font-size: 20pt;
+}
+.italic {
+	font-style: italic;
+}
+.underline {
+	text-decoration: underline;
+}
+.underline-hover {
+	text-decoration: none;
+}
+.underline-hover:hover {
+	text-decoration: underline;
+}
+.float-l {
+	float: left;
+}
+.float-r {
+	float: right;
+}
+.upper {
+	text-transform: uppercase;
+}
+.lower {
+	text-transform: lowercase;
+}
+.c-black {
+	color: black;
+}
+.c-white {
+	color: white;
+}
+.c-gray {
+	color: gray;
+}
+.c-silver {
+	color: silver;
+}
+.c-blue {
+	color: blue;
+}
+.c-red {
+	color: red;
+}
+.c-green {
+	color: green;
+}
+.c-orange {
+	color: #ff9d00;
+}
+.c-ddd {
+	color: #ddd;
+}
+.bg-black {
+	background-color: black;
+}
+.bg-white {
+	background-color: white;
+}
+.bg-gray {
+	background-color: gray;
+}
+.bg-silver {
+	background-color: silver;
+}
+.bg-blue {
+	background-color: blue;
+}
+.bg-red {
+	background-color: red;
+}
+.bg-green {
+	background-color: green;
+}
+.bg-orange {
+	background-color: #ff9d00;
+}
+.bg-ddd {
+	background-color: #ddd;
+}
+.help {
+	cursor: help;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.c {
+	text-align: center;
+}
+
+.l {
+	text-align: left;
+}
+
+.r {
+	text-align: right;
+}
+.pd {
+	padding: 3px 5px;	
+}
+.pd-5 {
+	padding: 5px 5px;	
+}
+.pd-4 {
+	padding: 4px 4px;	
+}
+.pd-3 {
+	padding: 3px 3px;	
+}
+.pd-2 {
+	padding: 2px 2px;	
+}
+.pd-1 {
+	padding: 1px 1px;	
+}
+.pd-0 {
+	padding: 0px 0px!important;	
+}
+.bd {
+	border: 1px solid silver;
+}
+.bd-black {
+	border-color: black;
+}
+.bd-blue {
+	border-color: blue;
+}
+.infreg-box {
+	border: 1px solid lightblue; 
+	margin-top: 1px; 
+	padding: 3px 5px; 
+	background-color: #FFFBAE;
+	font-size: 7pt;
+	color: black;
+}
+.infreg-box * {
+	font-size: 7pt;
+	color: black;
+}
+/* form */
+.frm-pd {
+	padding: 2px 3px 1px 5px; 
+}
+.sys-error-message {
+	color: red;
+	font-size: 8pt;
+}
